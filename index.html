@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es-mx" ng-app="angularToDo"> <!--parte de la pagina corresponde a angular-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List - Angular</title>
+    <link rel="stylesheet" 
+    href="//http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body ng-controller="mainController"> <!--añadir controlador a la seccion correspondiente-->
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1>Angular To Do List<span class="label label-info">{{todos.length}}</span></h1>
+        </div>
+    </div>
+    <div>
+        <div id="ToDo-list" class="row">
+            <div class="col-sm-4 col-sm-offfset-4">
+                <!--mostrar la lista de tareas-->
+                <div class="checkbox" ng-repeat="ToDo in todos">
+                    <label for="">
+                        <input type="checkbox" ng-click="deleteToDo(ToDo._id)">{{ToDo.text}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="ToDo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text center">
+                <form action="">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg text-center" 
+                        placeholder="Inserta una nueva tarea" ng-model="formData.text">
+                    </div>
+                    <button class="btn btn-primary btn-lg" ng-click="createToDo()">Añadir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="//http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
