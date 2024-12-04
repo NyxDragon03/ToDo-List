@@ -18,7 +18,7 @@ angular.module('angularToDo', [])
         //añadir un nuevo ToDo, envía el texto a la API
         $scope.createToDo = function(){
             if($scope.formData.text){ //validar que el campo no esté vacío
-                $http.post('/api/todos', $scope.formrData)
+                $http.post('/api/todos', $scope.formData)
                 .then(function(response){
                     $scope.formrData = {};
                     $scope.todos = response.data;

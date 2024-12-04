@@ -9,7 +9,9 @@ const morgan = require('morgan');
 require('dotenv').config()
 
 const DB_CONNECTION = process.env.DB_CONNECTION || '';
-mongoose.connect(DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}); //cadena de conexión
+mongoose.connect(DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}) //cadena de conexión
+    .then(() => console.log('Conectado a mongoDB'))
+    .catch(err => console.log('Error en la conexión a la base de datos: ', err))
 
 //middleware:
 //localización de ficheros estaticos
@@ -29,50 +31,42 @@ let ToDo = mongoose.model('todo', {
 
 //RUTAS
 //GET:
-app.get('/api/todos', function(req, res){
-    ToDo.find(function(err, todos){
-        if(err){
-            res.send(err);
-        }
-        res.json(todos);
-    });
+app.get('/api/todos', async(req, res) => {
+    try{
+        const todos = await ToDo.find();
+        res.json(todos)
+    } catch (err) {
+        console.error('Error al obtener ToDos: ',err);
+        return res.status(500).send({error: 'Error en el servidor: ' + err.message});
+    }
 });
 
 //POST:
-app.post('/api/todos', function(req, res){
-    ToDo.create({
+app.post('/api/todos', async (req, res) => {
+    try{
+        await ToDo.create({
         text: req.body.text,
         done: false
-    }, function(err, ToDo){
-        if(err){
-            res.send(err);
-        }
-
-        ToDo.find(function(err, todos){
-            if(err){
-                res.send(err);
-            }
-            res.json(todos);
         });
-    });
+        const todos = await ToDo.find(); //busca los ToDos luego de crear uno nuevo
+    } catch (err) {
+        console.error('Error al crear ToDo:', err.message);
+        res.status(500).send({ error: 'Error en el servidor: ' + err.message });
+    }
 });
 
 //DELETE:
-app.delete('/api/todos/:id', function(req, res){
-    ToDo.deleteOne({
-        _id: req.params.id
-    }, function(err){
-        if(err){
-            res.send(err);
-        }
-
-        ToDo.find(function(err, todos){
-            if(err){
-                res.send(err);
-            }
-            res.json(todos);
+app.delete('/api/todos/:id', async (req, res) => {
+    try{
+        await ToDo.deleteOne({
+            _id: req.params.id
         });
-    });
+        const todos = await ToDo.find(); //recuperar ToDos luego de eliminar
+        res.json(todos);
+    } catch (err) {
+        console.error('Error al eliminar ToDo:', err.message);
+        res.status(500).send({ error: 'Error en el servidor: ' + err.message });
+    }
 });
 
 //vista html simple de la app, angular maneja el frontend

@@ -10,7 +10,7 @@
 <body ng-controller="mainController"> <!--añadir controlador a la seccion correspondiente-->
     <div class="container">
         <div class="jumbotron text-center">
-            <h1>Angular To Do List<span class="label label-info">{{todos.length}}</span></h1>
+            <h1>Angular To Do List <span class="label label-info">{{todos.length}}</span></h1>
         </div>
     </div>
     <div>
@@ -29,7 +29,7 @@
                 <form action="">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg text-center" 
-                        placeholder="Inserta una nueva tarea" ng-model="formData.text">
+                        placeholder="Inserta una nueva tarea" id="tarea" name="tarea" ng-model="formData.text">
                     </div>
                     <button class="btn btn-primary btn-lg" ng-click="createToDo()">Añadir</button>
                 </form>
