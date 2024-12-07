@@ -1,11 +1,16 @@
 {
-    "name": "angular-todo",
-    "version": "0.0.1",
-    "description": "Simple Angular ToDo app based in MEAN stack",
+    "name": "todo-list",
+    "version": "1.0.0",
     "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
     "dependencies": {
-        "dotenv": "^16.4.7",
-        "express": "~3.x",
-        "mongoose": "latest"
+      "express": "^4.18.2",
+      "mongoose": "^6.10.0",
+      "body-parser": "^1.20.2",
+      "method-override": "^3.0.0",
+      "morgan": "^1.10.0",
+      "dotenv": "^16.0.3"
     }
-}
+  }

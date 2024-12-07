@@ -6,7 +6,7 @@ const mongoose= require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
-require('dotenv').config()
+require('dotenv').config();
 
 const DB_CONNECTION = process.env.DB_CONNECTION || '';
 mongoose.connect(DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}) //cadena de conexión
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //capturar datos en formato json
 app.use(bodyParser.json());
 //simula el DELETE y PUT
-app.use(express.methodOverride());
+app.use(methodOverride('_method'));
     
-let ToDo = mongoose.model('todo', {
+let ToDo = mongoose.model('ToDo', {
     text: String
 });
 
@@ -49,6 +49,7 @@ app.post('/api/todos', async (req, res) => {
         done: false
         });
         const todos = await ToDo.find(); //busca los ToDos luego de crear uno nuevo
+        res.json(todos);
     } catch (err) {
         console.error('Error al crear ToDo:', err.message);
         res.status(500).send({ error: 'Error en el servidor: ' + err.message });
@@ -71,9 +72,8 @@ app.delete('/api/todos/:id', async (req, res) => {
 
 //vista html simple de la app, angular maneja el frontend
 app.get('*', function(req, res){
-    req.sendfile(__dirname + './public/index.html');
+    req.sendfile(__dirname + '/public/index.html');
 });
 
-app.listen(8080, function(){
-    console.log('App listen on port 8080')
-})
+//exportar app para vercel
+module.exports = app;
