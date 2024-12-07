@@ -8,8 +8,10 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 require('dotenv').config();
 
+mongoose.set('strictQuery',true);
+
 const DB_CONNECTION = process.env.DB_CONNECTION || '';
-mongoose.connect(DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}) //cadena de conexión
+mongoose.connect(DB_CONNECTION) //cadena de conexión
     .then(() => console.log('Conectado a mongoDB'))
     .catch(err => console.log('Error en la conexión a la base de datos: ', err))
 
@@ -25,7 +27,7 @@ app.use(bodyParser.json());
 //simula el DELETE y PUT
 app.use(methodOverride('_method'));
     
-let ToDo = mongoose.model('ToDo', {
+let ToDo = mongoose.model('todo', {
     text: String
 });
 
