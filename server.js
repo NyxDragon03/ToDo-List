@@ -75,8 +75,6 @@ app.delete('/api/todos/:id', async (req, res) => {
 });
 
 //vista html simple de la app, angular maneja el frontend
-const path = require('path');
-
 app.get('*', (req, res) => {
     console.log('Solicitud recibida en: ', req.url);
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
