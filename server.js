@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express();
+const path = require('path')
 const mongoose= require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -17,7 +18,7 @@ mongoose.connect(DB_CONNECTION) //cadena de conexión
 
 //middleware:
 //localización de ficheros estaticos
-app.use(express.static((path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 //mostrar un log de todos los request en la consola
 app.use(morgan('dev'));
 //capturar datos de formularios html
