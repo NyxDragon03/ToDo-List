@@ -39,7 +39,7 @@ app.get('/api/todos', async(req, res) => {
         res.json(todos)
     } catch (err) {
         console.error('Error al obtener ToDos: ',err);
-        return res.status(500).send({error: 'Error en el servidor: ' + err.message});
+        res.status(500).json({error: err.message});
     }
 });
 
@@ -76,11 +76,6 @@ app.delete('/api/todos/:id', async (req, res) => {
 app.get('*', function(req, res){
     console.log('Solicitud recibida en: ', req.url)
     res.sendFile(__dirname + '/public/index.html');
-});
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
 
 //exportar app para vercel
