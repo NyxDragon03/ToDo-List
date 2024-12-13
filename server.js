@@ -17,7 +17,7 @@ mongoose.connect(DB_CONNECTION) //cadena de conexión
 
 //middleware:
 //localización de ficheros estaticos
-app.use(express.static(__dirname + '/public'));
+app.use(express.static((path.join(__dirname, 'public')));
 //mostrar un log de todos los request en la consola
 app.use(morgan('dev'));
 //capturar datos de formularios html
