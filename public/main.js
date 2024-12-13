@@ -6,7 +6,7 @@ angular.module('angularToDo', [])
         $scope.formData = {};//almacenar variables dentro del controlador
 
         //carga la página y pide todos los ToDos del API
-        $http.get('https://to-dolist-five.vercel.app/api/todos')
+        $http.get('https://to-do-list-blue-omega.vercel.app/api/todos')
             .then(function(response){
             $scope.todos = response.data;
             console.log(response.data)
@@ -18,7 +18,7 @@ angular.module('angularToDo', [])
         //añadir un nuevo ToDo, envía el texto a la API
         $scope.createToDo = function(){
             if($scope.formData.text){ //validar que el campo no esté vacío
-                $http.post('https://to-dolist-five.vercel.app/api/todos', $scope.formData)
+                $http.post('https://to-do-list-blue-omega.vercel.app/api/todos', $scope.formData)
                 .then(function(response){
                     $scope.formrData = {};
                     $scope.todos = response.data;
@@ -34,7 +34,7 @@ angular.module('angularToDo', [])
 
         //borra ToDo luego de marcarlo como terminado
         $scope.deleteToDo = function(id){
-            $http.delete('https://to-dolist-five.vercel.app/api/todos/'+ id)
+            $http.delete('https://to-do-list-blue-omega.vercel.app/api/todos/'+ id)
             .then(function(response){
                 $scope.todos = response.data;
                 console.log(response.data);
