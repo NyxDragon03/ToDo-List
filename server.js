@@ -54,7 +54,7 @@ app.post('/api/todos', async (req, res) => {
         res.json(todos);
     } catch (err) {
         console.error('Error al crear ToDo:', err.message);
-        res.status(500).send({ error: 'Error en el servidor: ' + err.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -68,14 +68,16 @@ app.delete('/api/todos/:id', async (req, res) => {
         res.json(todos);
     } catch (err) {
         console.error('Error al eliminar ToDo:', err.message);
-        res.status(500).send({ error: 'Error en el servidor: ' + err.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
 //vista html simple de la app, angular maneja el frontend
-app.get('*', function(req, res){
-    console.log('Solicitud recibida en: ', req.url)
-    res.sendFile(__dirname + '/public/index.html');
+const path = require('path');
+
+app.get('*', function(req, res) {
+    console.log('Solicitud recibida en: ', req.url);
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 //exportar app para vercel
