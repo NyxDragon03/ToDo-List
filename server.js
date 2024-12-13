@@ -11,14 +11,15 @@ require('dotenv').config();
 
 mongoose.set('strictQuery',true);
 
+//localización de ficheros estaticos
+app.use(express.static(path.join(__dirname, 'public')));
+
 const DB_CONNECTION = process.env.DB_CONNECTION || '';
 mongoose.connect(DB_CONNECTION) //cadena de conexión
     .then(() => console.log('Conectado a mongoDB'))
     .catch(err => console.log('Error en la conexión a la base de datos: ', err))
 
 //middleware:
-//localización de ficheros estaticos
-app.use(express.static(path.join(__dirname, 'public')));
 //mostrar un log de todos los request en la consola
 app.use(morgan('dev'));
 //capturar datos de formularios html
@@ -76,7 +77,7 @@ app.delete('/api/todos/:id', async (req, res) => {
 //vista html simple de la app, angular maneja el frontend
 const path = require('path');
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
     console.log('Solicitud recibida en: ', req.url);
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
