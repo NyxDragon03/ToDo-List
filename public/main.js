@@ -25,7 +25,7 @@ angular.module('angularToDo', [])
                     console.log(response.data);
                 })
                 .catch(function(error){
-                    console.log('Error: '+ error,data)
+                    console.log('Error: '+ error.data)
                 });
             } else {
                 alert('Error: El campo de texto está vacío');

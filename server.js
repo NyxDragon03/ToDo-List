@@ -74,7 +74,13 @@ app.delete('/api/todos/:id', async (req, res) => {
 
 //vista html simple de la app, angular maneja el frontend
 app.get('*', function(req, res){
-    req.sendfile(__dirname + '/public/index.html');
+    console.log('Solicitud recibida en: ', req.url)
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
 
 //exportar app para vercel
